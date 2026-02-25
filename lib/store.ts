@@ -103,8 +103,15 @@ export const useStore = create<Store>()(
         })),
 
       // Patient
-      patient: defaultPatient,
-      setPatient: (patient) => set({ patient }),
+      // Patient
+patient: defaultPatient,
+setPatient: (patient) =>
+  set((state) => ({
+    patient:
+      typeof patient === 'function'
+        ? patient(state.patient)
+        : patient,
+  })),
 
       // Alert History
       alertHistory: [],
